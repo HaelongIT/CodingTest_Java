@@ -11,11 +11,13 @@ public enum AuthGrade {
         this.description = description;
     }
 
-    public void getLevel() {
-        System.out.println("levle = " + level);
+    public int getLevel() {
+        // System.out.println("level = " + level);
+        return level;
     }
 
-    public void getDescription() {
-        System.out.println("description = " + description);
+    public String getDescription() {
+        // System.out.println("description = " + description);
+        return description;
     }
 }
