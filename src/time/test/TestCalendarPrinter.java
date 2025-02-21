@@ -2,7 +2,6 @@ package time.test;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjuster;
 import java.time.temporal.TemporalAdjusters;
 import java.util.Scanner;
 
@@ -14,25 +13,34 @@ public class TestCalendarPrinter {
         System.out.print("월을 입력하세요 : ");
         int month = scanner.nextInt();
 
-        // 해당 년도와 월에 해당되는 첫 날을 가져와서 일만 떼어오기 + 첫날의 요일 가져오기
+        printCalendar(year, month);
+    }
+
+    public static void printCalendar(int year, int month) {
         LocalDate startDate = LocalDate.of(year, month, 1);
         DayOfWeek startDayOfWeek = startDate.getDayOfWeek();
-
-        // 마지막 날짜 가져오기
         LocalDate lastDate = startDate.with(TemporalAdjusters.lastDayOfMonth());
         int lastDay = lastDate.getDayOfMonth();
 
-        // 요일 프레임 출력
-        System.out.println("Su Mo Tu We Th Fr Sa");
+        printDayHeaders();
+        printDays(startDayOfWeek, lastDay);
+    }
 
-        // 시작 날짜랑 요일과 붙이기 + 토요일에서 끊어주고 다시 일요일로 넘어가기
-        // 1. 시작 요일에 따라 공백 추가
+    // 요일 프레임 출력
+    private static void printDayHeaders() {
+        System.out.println("Su Mo Tu We Th Fr Sa");
+    }
+
+    // 날짜 출력
+    private static void printDays(DayOfWeek startDayOfWeek, int lastDay) {
         int startIndex = startDayOfWeek.getValue() % 7;
+
+        // 1. 시작 요일에 따라 공백 추가
         for (int i = 0; i < startIndex; i++) {
             System.out.print("   ");
         }
 
-        // 2. 날짜 출력 (1부터 lastDay까지)
+        // 2. 날짜 출력
         for (int day = 1; day <= lastDay; day++) {
             System.out.printf("%2d ", day);
 
